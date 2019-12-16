@@ -2,5 +2,5 @@
 
 set -x
 
-service oozie start
-
+#service oozie start
+$OOZIE_HOME/bin/oozied.sh start

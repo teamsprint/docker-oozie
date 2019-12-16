@@ -31,3 +31,7 @@ expect eof
 "
 
 #schematool -initSchema -dbType mysql
+
+$OOZIE_HOME/bin/oozie-setup.sh prepare-war
+$OOZIE_HOME/bin/ooziedb.sh create -run
+
