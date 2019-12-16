@@ -40,9 +40,17 @@ RUN yum -y install oozie-4.3.0-1.el7.centos.noarch.rpm
 #RUN rm -f mysql57-community-release-el7-7.noarch.rpm
 
 #RUN yum -y install expect
+ENV OOZIE_HOME /usr/lib/oozie
 
+RUN wget http://www.java2s.com/Code/JarDownload/mysql/mysql-connector-java-commercial-5.1.7-bin.jar.zip
+RUN unzip mysql-connector-java-commercial-5.1.7-bin.jar.zip
+RUN mv mysql-connector-java-commercial-5.1.7-bin.jar  $OOZIE_HOME/lib/
+RUN rm -f mysql-connector-java-commercial-5.1.7-bin.jar.zip
+
+ADD script/init-oozie-metastore.sh /
 ADD script/start-oozie.sh /
 ADD script/stop-oozie.sh /
+ADD conf/oozie-site.xml /etc/oozie/conf/.
 
 ADD Dockerfile /
 ADD README.md /

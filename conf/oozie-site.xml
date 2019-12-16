@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<configuration>
+    <property>
+    	<name>oozie.service.ProxyUserService.proxyuser.root.hosts</name>
+    	<value>*</value>
+    </property>
+    <property>
+    	<name>oozie.service.ProxyUserService.proxyuser.root.groups</name>
+    	<value>*</value>
+    </property>
+    <property>
+    	<name>oozie.service.ProxyUserService.proxyuser.metatron.hosts</name>
+    	<value>*</value>
+    </property>
+    <property>
+    	<name>oozie.service.ProxyUserService.proxyuser.metatron.groups</name>
+    	<value>*</value>
+    </property>
+
+    <property>
+       <name>oozie.email.smtp.host</name>
+       <value>localhost</value>
+       <description>
+           The host where the email action may find the SMTP server.
+       </description>
+    </property>
+
+    <property>
+        <name>oozie.service.HadoopAccessorService.hadoop.configurations</name>
+        <value>*=/etc/hadoop/conf</value>
+        <description>
+            Comma separated AUTHORITY=HADOOP_CONF_DIR, where AUTHORITY is the HOST:PORT of
+            the Hadoop service (JobTracker, YARN, HDFS). The wildcard '*' configuration is
+            used when there is no exact match for an authority. The HADOOP_CONF_DIR contains
+            the relevant Hadoop *-site.xml files. If the path is relative is looked within
+            the Oozie configuration directory; though the path can be absolute (i.e. to point
+            to Hadoop client conf/ directories in the local filesystem.
+        </description>
+    </property>
+
+    <property>
+        <name>oozie.service.SparkConfigurationService.spark.configurations</name>
+        <value>*=/etc/spark/conf</value>
+        <description>
+            Comma separated AUTHORITY=SPARK_CONF_DIR, where AUTHORITY is the HOST:PORT of
+            the ResourceManager of a YARN cluster. The wildcard '*' configuration is used when
+            there is no exact match for an authority. The SPARK_CONF_DIR contains the relevant
+            spark-defaults.conf properties file. If the path is relative is looked within the
+            Oozie configuration directory; though the path can be absolute.
+            This is only used when the Spark master is set to either "yarn-client" or "yarn-cluster".
+        </description>
+    </property>
+
+
+    <property>
+    	<name>oozie.service.JPAService.jdbc.driver</name>
+    	<value>com.mysql.jdbc.Driver</value>
+    </property>
+    <property>
+    	<name>oozie.service.JPAService.jdbc.url</name>
+    	<value>jdbc:mysql://localhost:3306/oozie_metastore</value>
+    </property>
+    <property>
+    	<name>oozie.service.JPAService.jdbc.username</name>
+    	<value>oozie</value>
+    </property>
+ 
+    <property>
+    	<name>oozie.service.JPAService.jdbc.password</name>
+    	<value>Metatron123$</value>
+    </property>
+
+    <property>
+    	<name>oozie.processing.timezone</name>
+    	<value>GMT+0900</value>
+    </property>
+
+    <property>
+    	<name>oozie.services.ext</name>
+        <value>
+         org.apache.oozie.service.JMSAccessorService,
+         org.apache.oozie.service.JMSTopicService,
+         org.apache.oozie.service.EventHandlerService,
+         org.apache.oozie.sla.service.SLAService
+        </value>
+    </property>
+ 
+    <property>
+    	<name>oozie.jms.producer.connection.properties</name>
+    	<value>java.naming.factory.initial#org.apache.activemq.jndi.ActiveMQInitialContextFactory;java.naming.provider.url#tcp://activemq-server:61616;connectionFactoryNames#ConnectionFactory</value>
+    </property>
+</configuration>
+
