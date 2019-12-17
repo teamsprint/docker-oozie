@@ -4,48 +4,21 @@ MAINTAINER Jungil Park, Jooho Kim
 
 USER root
 
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/oozie/noarch/oozie-4.3.0-1.el7.centos.noarch.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/bigtop-tomcat/noarch/bigtop-tomcat-6.0.45-1.el7.centos.noarch.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/hadoop/x86_64/hadoop-client-2.7.3-1.el7.centos.x86_64.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/oozie/noarch/oozie-client-4.3.0-1.el7.centos.noarch.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/bigtop-utils/noarch/bigtop-utils-1.2.1-1.el7.centos.noarch.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/hadoop/x86_64/hadoop-mapreduce-2.7.3-1.el7.centos.x86_64.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/hadoop/x86_64/hadoop-hdfs-2.7.3-1.el7.centos.x86_64.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/hadoop/x86_64/hadoop-2.7.3-1.el7.centos.x86_64.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/zookeeper/x86_64/zookeeper-3.4.6-1.el7.centos.x86_64.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/bigtop-jsvc/x86_64/bigtop-jsvc-1.0.15-1.el7.centos.x86_64.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/bigtop-groovy/noarch/bigtop-groovy-2.4.10-1.el7.centos.noarch.rpm
-#RUN wget https://ci.bigtop.apache.org/view/Releases/job/Bigtop-1.2.1/OS=centos-7/lastSuccessfulBuild/artifact/output/hadoop/x86_64/hadoop-yarn-2.7.3-1.el7.centos.x86_64.rpm
-
-#RUN yum -y install bigtop-utils-1.2.1-1.el7.centos.noarch.rpm
-#RUN yum -y install zookeeper-3.4.6-1.el7.centos.x86_64.rpm
-#RUN yum -y install hadoop-2.7.3-1.el7.centos.x86_64.rpm
-#RUN yum -y install bigtop-jsvc-1.0.15-1.el7.centos.x86_64.rpm
-#RUN yum -y install bigtop-groovy-2.4.10-1.el7.centos.noarch.rpm
-#RUN yum -y install hadoop-hdfs-2.7.3-1.el7.centos.x86_64.rpm
-#RUN yum -y install hadoop-yarn-2.7.3-1.el7.centos.x86_64.rpm
-#RUN yum -y install hadoop-mapreduce-2.7.3-1.el7.centos.x86_64.rpm
-#RUN yum -y install hadoop-client-2.7.3-1.el7.centos.x86_64.rpm
-#RUN yum -y install bigtop-tomcat-6.0.45-1.el7.centos.noarch.rpm
-#RUN yum -y install oozie-client-4.3.0-1.el7.centos.noarch.rpm
-#RUN yum -y install oozie-4.3.0-1.el7.centos.noarch.rpm
-
-#RUN yum -y localinstall oozie-4.3.0-1.el7.centos.src.rpm
-#RUN yum repolist enabled | grep "mysql.*-community.*"
-
-#RUN wget http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
-#RUN yum -y localinstall mysql57-community-release-el7-7.noarch.rpm
-#RUN yum repolist enabled | grep "mysql.*-community.*"
-#RUN yum -y install mysql-community-server mysql mysql-libs mysql-devel mysql-server
-#RUN rm -f mysql57-community-release-el7-7.noarch.rpm
-
-#RUN yum -y install expect
-
 RUN yum -y install zip
 
 ENV OOZIE_HOME /opt/oozie
+ENV ACTIVEMQ_HOME /opt/activemq
 
-ADD oozie-4.3.1-distro.tar.gz /opt
+# install activemq
+RUN wget https://sktmetatronkrsouthshared.blob.core.windows.net/metatron-public/temp/apache-activemq-5.15.10-bin.tar.gz
+RUN tar -zxvf apache-activemq-5.15.10-bin.tar.gz -C /opt
+RUN rm -f apache-activemq-5.15.10-bin.tar.gz
+RUN ln -s /opt/apache-activemq-5.15.10 /opt/activemq
+
+# install oozie
+RUN wget https://sktmetatronkrsouthshared.blob.core.windows.net/metatron-public/temp/oozie-4.3.1-distro.tar.gz
+RUN tar -zxvf oozie-4.3.1-distro.tar.gz -C /opt
+RUN rm -f oozie-4.3.1-distro.tar.gz
 RUN ln -s /opt/oozie-4.3.1 /opt/oozie
 
 ADD conf/oozie-site.xml $OOZIE_HOME/conf/.
