@@ -34,4 +34,4 @@ expect eof
 
 $OOZIE_HOME/bin/oozie-setup.sh prepare-war
 $OOZIE_HOME/bin/ooziedb.sh create -run
-$OOZIE_HOME/bin/oozie-setup.sh sharelib create -fs hdfs://localhost:9000
+$OOZIE_HOME/bin/oozie-setup.sh sharelib create -fs hdfs://localhost

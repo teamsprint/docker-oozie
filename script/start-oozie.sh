@@ -2,7 +2,7 @@
 
 set -x
 
-#service oozie start
+# Start activemq & oozie server
 
 $ACTIVEMQ_HOME/bin/activemq start
 $OOZIE_HOME/bin/oozied.sh start
